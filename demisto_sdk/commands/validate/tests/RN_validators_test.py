@@ -249,8 +249,8 @@ def test_MultipleRNsAddedValidator_obtain_invalid_content_items():
     create_old_file_pointers([pack], [old_pack])
     validator = MultipleRNsAddedValidator()
     assert not validator.obtain_invalid_content_items(content_items=[pack])
-    pack.release_note.all_rns.append("2.0.5.json")
+    pack.release_note.rn_file_names.append("2.0.5.json")
     assert not validator.obtain_invalid_content_items(content_items=[pack])
-    pack.release_note.all_rns.append("2.0.6.md")
+    pack.release_note.rn_file_names.append("2.0.6.md")
     results = validator.obtain_invalid_content_items(content_items=[pack])
     assert expected_error == results[0].message

@@ -36,7 +36,7 @@ class MultipleRNsAddedValidator(BaseValidator[ContentTypes]):
             if (
                 content_item.old_base_content_object
                 and len(
-                    added_rns := set(content_item.release_note.all_rns)
+                    added_rns := set(content_item.release_note.rn_file_names)
                     - set(content_item.old_base_content_object.release_note.all_rns)  # type:ignore[attr-defined]
                 )
                 > 1

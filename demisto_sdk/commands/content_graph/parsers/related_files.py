@@ -113,7 +113,13 @@ class RNRelatedFile(TextFiles):
         self, main_file_path: Path, latest_rn: str, git_sha: Optional[str] = None
     ) -> None:
         self.latest_rn_version = latest_rn
-        self.rns_list: List[str] = []
+        self._all_file_names = (  # both `.md` and `.json`
+            GitUtil.from_content_path().list_files_in_dir(
+                self.main_file_path / RELEASE_NOTES_DIR, self.git_sha
+            )
+            if git_sha
+            else get_child_files(self.main_file_path / RELEASE_NOTES_DIR)
+        )
         super().__init__(main_file_path, git_sha)
 
     def get_optional_paths(self) -> List[Path]:
@@ -124,15 +130,20 @@ class RNRelatedFile(TextFiles):
         ]
 
     @property
-    def all_rns(self) -> List[str]:
-        if not self.rns_list:
-            if self.git_sha:
-                self.rns_list = GitUtil.from_content_path().list_files_in_dir(
-                    self.main_file_path / RELEASE_NOTES_DIR, self.git_sha
-                )
-            else:
-                self.rns_list = get_child_files(self.main_file_path / RELEASE_NOTES_DIR)
-        return self.rns_list
+    def rn_file_names(self) -> List[str]:
+        return [
+            file_name
+            for file_name in self._all_file_names
+            if Path(file_name).suffix == ".md"
+        ]
+
+    @property
+    def rn_config_file_names(self) -> List[str]:
+        return [
+            file_name
+            for file_name in self._all_file_names
+            if Path(file_name).suffix == ".json"
+        ]
 
 
 class SecretsIgnoreRelatedFile(RelatedFile):
