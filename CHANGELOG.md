@@ -1,4 +1,6 @@
 # Changelog
+## 0.0.0
+
 ## 1.32.0
 ### Breaking
 * IN136 will be handled in the new validate format of RM102. [#4535](https://github.com/demisto/demisto-sdk/pull/4535)
