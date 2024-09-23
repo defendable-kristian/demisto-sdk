@@ -1,5 +1,4 @@
 # Changelog
-## 0.0.0
 
 ## 1.32.0
 ### Breaking
