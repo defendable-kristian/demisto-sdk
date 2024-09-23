@@ -1,5 +1,5 @@
 # Changelog
-## 0.0.0 (2024-09-23)
+## 0.0.0
 ### Feature
 * Modified the `sdk-changelog` script, to include the release date for each version in the title. [#4553](https://github.com/demisto/demisto-sdk/pull/4553)
 
